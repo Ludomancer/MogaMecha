@@ -20,7 +20,7 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     public Material _bigBadWolf;
     public Material[] colors;
 
-    void Start()
+    void Awake()
     {
         spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         ns = GameObject.Find("Networking").GetComponent<NetworkingServer>();

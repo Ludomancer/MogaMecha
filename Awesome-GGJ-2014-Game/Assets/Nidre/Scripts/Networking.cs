@@ -74,6 +74,16 @@ public class Networking : MonoBehaviour
         nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
 
+    public void AddLeftShell()
+    {
+        _pb.availableLeftShell++;
+    }
+
+    public void AddRightShell()
+    {
+        _pb.availableLeftShell--;
+    }
+
 
     [RPC]
     public void SpawnNewEnemy(Vector3 position, int id, int style)

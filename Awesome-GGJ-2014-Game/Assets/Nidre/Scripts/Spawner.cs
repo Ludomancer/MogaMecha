@@ -19,13 +19,15 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         _bigBadWolf = (uberAwesomeMogaMecha.Style)Random.Range(0, 5);
+        print((int)_bigBadWolf);
+        nt.SendBigBadWold((int)_bigBadWolf);
         Vector3 _pos;
         for (int i = 0; i < 5; i++)
         {
             _pos = transform.position;
             _pos += Vector3.right * Random.Range(-25f, 25f) + Vector3.forward * Random.Range(-5f, 5f);
             goList.Add(Instantiate(uberAwesomeMogaMecha, _pos, Quaternion.identity) as GameObject);
-            nt.SpawnNewEnemy(goList[goList.Count - 1].transform.position, goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id, (int)uberAwesomeMogaMecha.GetComponent<uberAwesomeMogaMecha>()._style);
+            nt.SpawnNewEnemy(goList[goList.Count - 1].transform.position, goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id, (int)goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>()._style);
         }
     }
 

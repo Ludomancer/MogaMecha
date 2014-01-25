@@ -7,7 +7,7 @@ public class PunchingBag : MonoBehaviour
     public GameObject mentos;
     GameObject mentosCopy;
     float lastShot;
-    float interval = 0.25f;
+    float interval = 0.5f;
     float doubleInterval = 1.5f;
     float doubleStartTime;
     bool isDouble;
@@ -22,6 +22,9 @@ public class PunchingBag : MonoBehaviour
     public Material ok;
     public Material wait;
     public Material uber;
+
+    public int availableLeftShell;
+    public int availableRightShell;
 
     //public void OnCollisionEnter(Collision collision)
     //{
@@ -70,41 +73,41 @@ public class PunchingBag : MonoBehaviour
         //print(canFire(h1) + " : " + canFire(h2));
         shotSuccess = false;
 
-        if (isFirstHand)
+        if (availableLeftShell > 0)
         {
             ind1.sharedMaterial = ok;
-            ind2.sharedMaterial = wait;
         }
         else
         {
-            ind2.sharedMaterial = ok;
             ind1.sharedMaterial = wait;
+        }
+        if (availableRightShell > 0)
+        {
+            ind2.sharedMaterial = ok;
+        }
+        else
+        {
+            ind2.sharedMaterial = wait;
         }
 
         if (canFire(h1) && canFire(h2))
         {
             Double();
-            ind2.sharedMaterial = uber;
-            ind1.sharedMaterial = uber;
+            //ind2.sharedMaterial = uber;
+            //ind1.sharedMaterial = uber;
         }
         else
         {
             doubleStartTime = 0;
-            if (isFirstHand == true)
+            if (canFire(h1) && availableRightShell > 0)
             {
-                if (canFire(h1))
-                {
-                    Shoot(h1.transform.position);
-                    isFirstHand = false;
-                }
+                Shoot(h1.transform.position);
+                isFirstHand = false;
             }
-            else
+            else if (canFire(h2) && availableLeftShell > 0)
             {
-                if (canFire(h2))
-                {
-                    Shoot(h2.transform.position);
-                    isFirstHand = true;
-                }
+                Shoot(h2.transform.position);
+                isFirstHand = true;
             }
         }
         lastShot = Time.realtimeSinceStartup;
@@ -165,11 +168,15 @@ public class PunchingBag : MonoBehaviour
 
     bool isHandClosed(UnityHand h)
     {
+        //print(h.leapFingers.Count + " : " + h.unityFingers.Count);
         return (h.leapFingers.Count < 2);
     }
 
     bool canFire(UnityHand h)
     {
+        return isHandExists(h);
+        print("Closed : " + isHandClosed(h));
+        print("Exists : " + isHandExists(h));
         return isHandClosed(h) && isHandExists(h);
     }
 

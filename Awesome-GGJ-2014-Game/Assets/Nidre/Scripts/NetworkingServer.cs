@@ -25,6 +25,16 @@ public class NetworkingServer : MonoBehaviour
         Network.InitializeServer(32, 80, false);
     }
 
+    public void AddLeftShell()
+    {
+        nw.RPC("AddLeftShell", RPCMode.Others);
+    }
+
+    public void AddRightShell()
+    {
+        nw.RPC("AddRightShell", RPCMode.Others);
+    }
+
     void OnServerInitialized()
     {
         isServer = true;
