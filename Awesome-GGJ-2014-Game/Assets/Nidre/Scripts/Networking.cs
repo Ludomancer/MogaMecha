@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Networking : MonoBehaviour
 {
+    Load _loader;
     NetworkView nw;
     public PunchingBag _pb;
     public bool isConnected;
@@ -12,6 +13,7 @@ public class Networking : MonoBehaviour
     void Start()
     {
         nw = GetComponent<NetworkView>();
+        _loader = Camera.main.GetComponent<Load>();
     }
 
     void OnGUI()
@@ -83,17 +85,36 @@ public class Networking : MonoBehaviour
         }
         nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
-     [RPC]
+    [RPC]
     public void AddLeftShell()
     {
         print("addLeft");
         _pb.availableLeftShell++;
     }
-     [RPC]
+    [RPC]
     public void AddRightShell()
     {
         print("addRight");
         _pb.availableRightShell++;
+    }
+
+    [RPC]
+    public void RemoveLeftShell()
+    {
+        if (_loader != null)
+        {
+            print("removeLeft");
+            nw.RPC("RemoveLeftShell", RPCMode.Others);
+        }
+    }
+    [RPC]
+    public void RemoveRightShell()
+    {
+        if (_loader != null)
+        {
+            print("removeRight");
+            nw.RPC("RemoveRightShell", RPCMode.Others);
+        }
     }
 
 
