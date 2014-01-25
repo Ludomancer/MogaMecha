@@ -66,23 +66,22 @@ public class Networking : MonoBehaviour
     [RPC]
     public void SendDeadEnemyId(params int[] ids)
     {
+        string stringOfAllFloats = "";
+        for (int i = 0; i < ids.Length; i++)
+        {
+            stringOfAllFloats += ids[i].ToString() + "*";
+        }
         nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
 
     [RPC]
-    public void GetDeadEnemyId(params int[] ids)
+    public void GetDeadEnemyId(string ids)
     {
-        Debug.Log("Recieved Enemy");
-        for (int i = 0; i < ids.Length; i++)
-        {
-            Debug.Log(ids[i]);
-        }
     }
 
     [RPC]
     public void GetMentosPosition(string data)
     {
- 
     }
 
     // [RPC]

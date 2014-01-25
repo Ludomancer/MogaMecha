@@ -5,12 +5,14 @@ public class NetworkingServer : MonoBehaviour
 {
     NetworkView nw;
     public PunchingBagServer _pb;
+    Spawner spawner;
 	bool isServer;
     // Use this for initialization
     void Start()
     {
         nw = GetComponent<NetworkView>();
         LaunchServer();
+        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         //NetworkConnectionError ne = Network.Connect("10.0.27.129", 80);
 
         //Debug.Log(ne);
@@ -63,12 +65,15 @@ public class NetworkingServer : MonoBehaviour
         nw.RPC("GetDeadEnemyId", RPCMode.All, ids);
     }
 	 [RPC]
-    public void GetDeadEnemyId(params int[] ids)
+    public void GetDeadEnemyId(string ids)
     {
-        Debug.Log("Recieved Enemy");
-        for (int i = 0; i < ids.Length; i++)
+        Debug.Log("Pain Killer !");
+        string[] split = ids.Split('*');
+        int[] p = new int[split.Length - 1];
+        for (int i = 0; i < p.Length; i++)
         {
-            Debug.Log(ids[i]);
+            spawner.Kill(int.Parse(split[i]));
+            //p[0] = int.Parse(split[i]);
         }
     }
 	

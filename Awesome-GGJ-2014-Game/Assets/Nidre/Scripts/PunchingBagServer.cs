@@ -13,10 +13,6 @@ public class    PunchingBagServer : MonoBehaviour
     bool isDouble;
     bool shotSuccess = false;
     public float force = 3000;
-    UnityHand h1;
-    UnityHand h2;
-    Renderer ind1;
-    Renderer ind2;
     bool isFirstHand;
 
     public Material ok;
@@ -57,11 +53,7 @@ public class    PunchingBagServer : MonoBehaviour
     void Start()
     {
         LeapHandController hc = GameObject.Find("Leap Controller Multiple/_leapController").GetComponent<LeapHandController>();
-        ind1 = GameObject.Find("OVRCameraController/CameraLeft/h1Ind").renderer;
-        ind2 = GameObject.Find("OVRCameraController/CameraRight/h2Ind").renderer;
         nt = GameObject.Find("Networking").GetComponent<NetworkingServer>();
-        h1 = hc.unityHands[0];
-        h2 = hc.unityHands[1];
     }      	
 
     private void Double()
@@ -72,40 +64,17 @@ public class    PunchingBagServer : MonoBehaviour
         }
         if (Time.realtimeSinceStartup - doubleStartTime > doubleInterval)
         {
-            Shotgun(h1.transform.position);
             doubleStartTime = 0;
         }
     }
 
     void Shoot(Vector3 pos, Vector3 force)
     {
-		Debug.Log (force);
+        Debug.Log(force);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position = pos;
         mentosCopy.rigidbody.AddForce(force);
         shotSuccess = true;
-    }
-
-    void Shotgun(Vector3 pos)
-    {
-        Vector3[] array =  new Vector3[3];
-        Vector3 initPos = (Vector3.up * 2) + (Camera.main.transform.forward * 5);
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += initPos;
-        array[0] = mentosCopy.transform.position;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += (Camera.main.transform.right * 3) + initPos;
-        array[1] = mentosCopy.transform.position;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += -(Camera.main.transform.right * 3) + initPos;
-        array[2] = mentosCopy.transform.position;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-        shotSuccess = true;
-
-         nt.SendMentosPosition(array);
     }
 
     bool isHandExists(UnityHand h)
