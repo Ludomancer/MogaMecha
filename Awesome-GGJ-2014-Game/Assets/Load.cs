@@ -10,12 +10,15 @@ public class Load : MonoBehaviour {
     int right;
 
     int max = 10;
+	
+	NetworkingServer ns;
 
 	// Use this for initialization
 	void Start () 
     {
         _left = Camera.main.transform.FindChild("Left").GetComponent<TextMesh>();
         _right = Camera.main.transform.FindChild("Right").GetComponent<TextMesh>();
+		ns = GameObject.Find (	"Networking").GetComponent<NetworkingServer>();
         left = right = max;
 	}
 	
@@ -28,8 +31,10 @@ public class Load : MonoBehaviour {
             if (right == 0)
             {
                 right = max;
+							ns.AddRightShell();
             }
             _right.text = right.ToString();
+
         }
         else if (GUI.Button(new Rect(25, 25, 200, 25), "Left Shell"))
         {
@@ -37,8 +42,10 @@ public class Load : MonoBehaviour {
             if (left == 0)
             {
                 left = max;
+										ns.AddLeftShell();
             }
             _left.text = left.ToString();
+
         }
 	}
 }

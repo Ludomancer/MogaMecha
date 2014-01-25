@@ -24,12 +24,12 @@ public class NetworkingServer : MonoBehaviour
         var useNat = !Network.HavePublicAddress();
         Network.InitializeServer(32, 80, false);
     }
-
+	[RPC]
     public void AddLeftShell()
     {
         nw.RPC("AddLeftShell", RPCMode.Others);
     }
-
+	[RPC] 
     public void AddRightShell()
     {
         nw.RPC("AddRightShell", RPCMode.Others);
