@@ -49,16 +49,19 @@ public class Networking : MonoBehaviour
         Debug.Log(test);
     }
 
+     [RPC]
     public void SendMentosPosition(params Vector3[] positions)
     {
         nw.RPC("GetMentosPosition", RPCMode.All, positions);
     }
 
+     [RPC]
     public void SendDeadEnemyId(params int[] ids)
     {
         nw.RPC("GetDeadEnemyId", RPCMode.All, ids);
     }
 
+     [RPC]
     public void GetDeadEnemyId(params int[] ids)
     {
         Debug.Log("Recieved Enemy");
@@ -68,6 +71,7 @@ public class Networking : MonoBehaviour
         }
     }
 
+     [RPC]
     public void GetMentosPosition(params Vector3[] positions)
     {
         Debug.Log("Recieved Mentos");
