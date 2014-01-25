@@ -17,7 +17,7 @@ public class uberAwesomeMogaMecha : MonoBehaviour {
     {
         if (ns == null)
         {
-            id = int.Parse(System.DateTime.Now.ToString("yyMMddhhmmssff"));
+            id = int.Parse(System.DateTime.Now.ToString("hhmmssff"));
         }
     }
 

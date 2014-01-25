@@ -61,7 +61,7 @@ public class NetworkingServer : MonoBehaviour
 
 
     [RPC]
-    public void SpawnNewEnemy(Vector3 position)
+    public void SpawnNewEnemy(Vector3 position, int id)
     {
 
     }
