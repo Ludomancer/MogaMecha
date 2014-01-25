@@ -10,7 +10,9 @@ public class Networking : MonoBehaviour
         nw = GetComponent<NetworkView>();
         LaunchServer();
 
-        Network.Connect("10.0.27.129", 80);
+        NetworkConnectionError ne = Network.Connect("10.0.27.129", 80);
+
+        Debug.Log(ne);
 
         nw.RPC("PrintText", RPCMode.All, "Osman");
     }
@@ -18,13 +20,22 @@ public class Networking : MonoBehaviour
     // Update is called once per frame
     void LaunchServer()
     {
-        Network.incomingPassword = "HolyMoly";
         var useNat = !Network.HavePublicAddress();
         Network.InitializeServer(32, 80, useNat);
     }
 
+    void OnServerInitialized()
+    {
+        Debug.Log("Server initialized and ready");
+    }
+
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+        Debug.Log("Player " + " connected from " + player.ipAddress);
+    }
+
     [RPC]
-    void PrintText (string test)
+    void PrintText(string test)
     {
         Debug.Log(test);
     }
