@@ -74,6 +74,19 @@ public class Networking : MonoBehaviour
         nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
 
+
+    [RPC]
+    public void SpawnNewEnemy(Vector3 position , int id)
+    {
+        nw.RPC("GetAndSpawnNewEnemy", RPCMode.Others, position, id);
+    }
+
+    [RPC]
+    public void GetAndSpawnNewEnemy(Vector3 position)
+    {
+
+    }
+
     [RPC]
     public void GetDeadEnemyId(string ids)
     {

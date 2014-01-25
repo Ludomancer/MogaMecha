@@ -6,7 +6,7 @@ public class NetworkingServer : MonoBehaviour
     NetworkView nw;
     public PunchingBagServer _pb;
     Spawner spawner;
-	bool isServer;
+    public bool isServer;
     // Use this for initialization
     void Start()
     {
@@ -27,7 +27,7 @@ public class NetworkingServer : MonoBehaviour
 
     void OnServerInitialized()
     {
-		isServer = true;
+        isServer = true;
         Debug.Log("Server initialized and ready");
     }
 
@@ -52,19 +52,33 @@ public class NetworkingServer : MonoBehaviour
     {
         Debug.Log(test);
     }
-	 [RPC]
+    [RPC]
     public void SendMentosPosition(params Vector3[] positions)
     {
-		if (isServer) return;
+        if (isServer) return;
         nw.RPC("GetMentosPosition", RPCMode.All, positions);
     }
-	 [RPC]
+
+
+    [RPC]
+    public void SpawnNewEnemy(Vector3 position)
+    {
+
+    }
+
+    [RPC]
+    public void GetAndSpawnNewEnemy(Vector3 position, int id)
+    {
+        spawner.Spawn(position, id);
+    }
+
+    [RPC]
     public void SendDeadEnemyId(params int[] ids)
     {
-		if (isServer) return;
+        if (isServer) return;
         nw.RPC("GetDeadEnemyId", RPCMode.All, ids);
     }
-	 [RPC]
+    [RPC]
     public void GetDeadEnemyId(string ids)
     {
         Debug.Log("Pain Killer !");
@@ -76,22 +90,22 @@ public class NetworkingServer : MonoBehaviour
             //p[0] = int.Parse(split[i]);
         }
     }
-	
-	[RPC]
+
+    [RPC]
     public void GetMentosPosition(string data)
     {
         Debug.Log("Recieved Mentos");
-		//print (data);
-		string[] split = data.Split('*');
+        //print (data);
+        string[] split = data.Split('*');
         Vector3[] p = new Vector3[split.Length - 1];
         for (int i = 0; i < p.Length; i++)
         {
-			//print (split[i]);
+            //print (split[i]);
             string[] vector3 = split[i].Split(',');
-			//for (int y = 0; y < vector3.Length; y++) 
-			//{
-			//	print (y + " : " + vector3[y]);
-			//}
+            //for (int y = 0; y < vector3.Length; y++) 
+            //{
+            //	print (y + " : " + vector3[y]);
+            //}
             //print(vector3[0] + " : " + vector3[1] + " : " + vector3[2]);
             p[i] = new Vector3(float.Parse(vector3[0]), float.Parse(vector3[1]), float.Parse(vector3[2]));
             //print(p[i]);

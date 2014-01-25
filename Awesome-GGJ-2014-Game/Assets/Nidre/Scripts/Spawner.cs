@@ -6,9 +6,13 @@ public class Spawner : MonoBehaviour
 {
     List<GameObject> goList = new List<GameObject>();
     public GameObject uberAwesomeMogaMecha;
+    Networking nt;
+    public bool autoSpawn = true;
     void Start()
     {
-        InvokeRepeating("Spawn", 1, 2);
+        nt = GameObject.Find("Networking").GetComponent<Networking>();
+        if (autoSpawn)
+            InvokeRepeating("Spawn", 1, 2);
     }
 
     void Spawn()
@@ -17,6 +21,13 @@ public class Spawner : MonoBehaviour
         _pos = transform.position;
         _pos += Vector3.right * Random.Range(-25f, 25f);
         goList.Add(Instantiate(uberAwesomeMogaMecha, _pos, Quaternion.identity) as GameObject);
+        nt.SpawnNewEnemy(_pos, goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id);
+    }
+
+    public void Spawn(Vector2 pos, int id)
+    {
+        goList.Add(Instantiate(uberAwesomeMogaMecha, pos, Quaternion.identity) as GameObject);
+        goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id = id;
     }
 
     public void RemoveObject(GameObject go)
