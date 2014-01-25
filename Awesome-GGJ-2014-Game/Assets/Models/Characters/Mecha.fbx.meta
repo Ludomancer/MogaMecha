@@ -53,6 +53,8 @@ ModelImporter:
     100094: Shoulder_Control1
     100096: weaponTip
     100098: weaponTip 1
+    100100: shoulderControlUnity
+    100102: shoulderControlUnity2
     400000: arm
     400002: arm 1
     400004: arm2
@@ -103,6 +105,8 @@ ModelImporter:
     400094: Shoulder_Control1
     400096: weaponTip
     400098: weaponTip 1
+    400100: shoulderControlUnity
+    400102: shoulderControlUnity2
     2300000: arm
     2300002: arm 1
     2300004: arm2
