@@ -18,6 +18,7 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     Spawner spawner;
     NetworkingServer ns;
     public Material _bigBadWolf;
+    public Material[] colors;
 
     void Start()
     {
@@ -29,10 +30,12 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     public void SetStyleAndBadWolf(Style style)
     {
         _style = style;
+        renderer.sharedMaterial = colors[(int)_style];
         if (style == spawner._bigBadWolf)
         {
-            renderer.sharedMaterial = _bigBadWolf;
+            transform.GetChild(0).renderer.sharedMaterial = _bigBadWolf;
         }
+        else transform.GetChild(0).renderer.sharedMaterial = null;
     }
 
     void OnEnable()
@@ -41,6 +44,7 @@ public class uberAwesomeMogaMecha : MonoBehaviour
         {
             id = int.Parse(System.DateTime.Now.ToString("hhmmssff"));
             _style = (Style)Random.Range(0, 5);
+            renderer.sharedMaterial = colors[(int)_style];
         }
     }
 
