@@ -39,15 +39,14 @@ public class Load : MonoBehaviour
             {
                 right = max;
                 ns.AddRightShell();
-                leftHave++;
-                if (leftHave >= max)
+                rightHave++;
+                if (rightHave >= max)
                 {
-                    print("full");
-                    leftHave = max;
-                    _leftHave.color = Color.green;
+                    rightHave = max;
+                    _rightHave.color = Color.green;
                 }
-                else _leftHave.color = Color.yellow;
-                _leftHave.text = leftHave.ToString();
+                else _rightHave.color = Color.yellow;
+                _rightHave.text = rightHave.ToString();
             }
             _right.text = right.ToString();
 
@@ -59,14 +58,14 @@ public class Load : MonoBehaviour
             {
                 left = max;
                 ns.AddLeftShell();
-                rightHave++;
-                if (rightHave >= max)
+                leftHave++;
+                if (leftHave >= max)
                 {
-                    rightHave = max;
-                    _rightHave.color = Color.green;
+                    leftHave = max;
+                    _leftHave.color = Color.green;
                 }
-                else _rightHave.color = Color.yellow;
-                _rightHave.text = rightHave.ToString();
+                else _leftHave.color = Color.yellow;
+                _leftHave.text = leftHave.ToString();
             }
             _left.text = left.ToString();
 
