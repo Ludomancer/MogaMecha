@@ -20,6 +20,7 @@ public class BagSpawner : MonoBehaviour
         currentBag.transform.GetChild(0).GetComponent<PunchingBag>().ok = ok;
         currentBag.transform.GetChild(0).GetComponent<PunchingBag>().wait = wait;
         currentBag.transform.GetChild(0).GetComponent<PunchingBag>().uber = uber;
+        GameObject.Find("Networking").GetComponent<Networking>()._pb = currentBag.transform.GetChild(0).GetComponent<PunchingBag>();
         //spawner.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 1000;
     }
 

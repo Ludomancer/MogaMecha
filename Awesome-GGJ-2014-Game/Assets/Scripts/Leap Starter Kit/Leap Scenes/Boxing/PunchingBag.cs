@@ -3,6 +3,7 @@ using System.Collections;
 
 public class    PunchingBag : MonoBehaviour
 {
+    Networking nt;
     public GameObject mentos;
     GameObject mentosCopy;
     float lastShot;
@@ -58,6 +59,7 @@ public class    PunchingBag : MonoBehaviour
         LeapHandController hc = GameObject.Find("Leap Controller Multiple/_leapController").GetComponent<LeapHandController>();
         ind1 = GameObject.Find("OVRCameraController/CameraLeft/h1Ind").renderer;
         ind2 = GameObject.Find("OVRCameraController/CameraRight/h2Ind").renderer;
+        nt = GameObject.Find("Networking").GetComponent<Networking>();
         h1 = hc.unityHands[0];
         h2 = hc.unityHands[1];
     }
@@ -128,22 +130,30 @@ public class    PunchingBag : MonoBehaviour
         mentosCopy.transform.position += initPos;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         shotSuccess = true;
+
+        nt.SendMentosPosition(mentosCopy.transform.position);
     }
 
     void Shotgun(Vector3 pos)
     {
+        Vector3[] array =  new Vector3[3];
         Vector3 initPos = (Vector3.up * 2) + (Camera.main.transform.forward * 5);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += initPos;
+        array[0] = mentosCopy.transform.position;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
 
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += (Camera.main.transform.right * 3) + initPos;
+        array[1] = mentosCopy.transform.position;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += -(Camera.main.transform.right * 3) + initPos;
+        array[2] = mentosCopy.transform.position;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         shotSuccess = true;
+
+         nt.SendMentosPosition(array);
     }
 
     bool isHandExists(UnityHand h)
@@ -159,5 +169,13 @@ public class    PunchingBag : MonoBehaviour
     bool canFire(UnityHand h)
     {
         return isHandClosed(h) && isHandExists(h);
+    }
+
+    public void ShootMentosFromServer(Vector3[] positions)
+    {
+        for (int i = 0; i < positions.Length; i++)
+        {
+            Shoot(positions[i]);
+        }
     }
 }
