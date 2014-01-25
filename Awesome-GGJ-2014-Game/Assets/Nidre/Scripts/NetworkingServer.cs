@@ -54,6 +54,7 @@ public class NetworkingServer : MonoBehaviour
 
     void OnPlayerConnected(NetworkPlayer player)
     {
+
         Debug.Log("Player " + " connected from " + player.ipAddress);
     }
 

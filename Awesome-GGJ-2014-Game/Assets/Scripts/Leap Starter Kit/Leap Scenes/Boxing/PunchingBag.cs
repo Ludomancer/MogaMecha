@@ -7,7 +7,7 @@ public class PunchingBag : MonoBehaviour
     public GameObject mentos;
     GameObject mentosCopy;
     float lastShot;
-    float interval = 0.5f;
+    float interval = 0.2f;
     float doubleInterval = 1.5f;
     float doubleStartTime;
     bool isDouble;
@@ -73,7 +73,7 @@ public class PunchingBag : MonoBehaviour
         //print(canFire(h1) + " : " + canFire(h2));
         shotSuccess = false;
 
-        if (availableLeftShell > 0)
+        if (availableRightShell > 0)
         {
             ind1.sharedMaterial = ok;
         }
@@ -81,7 +81,7 @@ public class PunchingBag : MonoBehaviour
         {
             ind1.sharedMaterial = wait;
         }
-        if (availableRightShell > 0)
+        if (availableLeftShell > 0)
         {
             ind2.sharedMaterial = ok;
         }
@@ -98,15 +98,18 @@ public class PunchingBag : MonoBehaviour
         }
         else
         {
+            print(availableLeftShell + " : " + availableRightShell);
             doubleStartTime = 0;
-            if (canFire(h1) && availableRightShell > 0)
-            {
-                Shoot(h1.transform.position);
-                isFirstHand = false;
-            }
-            else if (canFire(h2) && availableLeftShell > 0)
+            if (canFire(h2) && availableRightShell > 0)
             {
                 Shoot(h2.transform.position);
+                availableRightShell--;
+                isFirstHand = false;
+            }
+            else if (canFire(h1) && availableLeftShell > 0)
+            {
+                Shoot(h1.transform.position);
+                availableLeftShell--;
                 isFirstHand = true;
             }
         }
