@@ -70,6 +70,7 @@ public class PunchingBag : MonoBehaviour
     void Update()
     {
         if (Time.realtimeSinceStartup - lastShot < interval) return;
+        availableLeftShell = 5;
         //print(canFire(h1) + " : " + canFire(h2));
         shotSuccess = false;
 
@@ -102,16 +103,16 @@ public class PunchingBag : MonoBehaviour
             doubleStartTime = 0;
             if (canFire(h2) && availableRightShell > 0)
             {
-                Shoot(h2.transform.position);
                 availableRightShell--;
                 nt.RemoveRightShell();
+                Shoot(h2.transform.position);
                 isFirstHand = false;
             }
             else if (canFire(h1) && availableLeftShell > 0)
             {
-                Shoot(h1.transform.position);
                 availableLeftShell--;
                 nt.RemoveLeftShell();
+                Shoot(h1.transform.position);
                 isFirstHand = true;
             }
         }

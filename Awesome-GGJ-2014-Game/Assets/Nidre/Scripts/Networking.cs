@@ -101,20 +101,14 @@ public class Networking : MonoBehaviour
     [RPC]
     public void RemoveLeftShell()
     {
-        if (_loader != null)
-        {
-            print("removeLeft");
-            nw.RPC("RemoveLeftShell", RPCMode.Others);
-        }
+        print("removeLeft");
+        nw.RPC("RemoveLeftShell", RPCMode.Others);
     }
     [RPC]
     public void RemoveRightShell()
     {
-        if (_loader != null)
-        {
-            print("removeRight");
-            nw.RPC("RemoveRightShell", RPCMode.Others);
-        }
+        print("removeRight");
+        nw.RPC("RemoveRightShell", RPCMode.Others);
     }
 
 
