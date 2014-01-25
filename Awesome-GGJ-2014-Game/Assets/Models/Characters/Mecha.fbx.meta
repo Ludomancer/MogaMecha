@@ -1,0 +1,270 @@
+fileFormatVersion: 2
+guid: 916d0a7bf29fd9c42ba803e8af076669
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: arm
+    100002: arm 1
+    100004: arm2
+    100006: arm2 1
+    100008: arm2CogJoint
+    100010: arm2CogJoint 1
+    100012: arm2Control
+    100014: arm2Control 1
+    100016: arm3
+    100018: arm3 1
+    100020: armCogJoint
+    100022: armCogJoint 1
+    100024: band
+    100026: Body
+    100028: body
+    100030: chin
+    100032: chinGrill
+    100034: chinPipe
+    100036: cogBody
+    100038: cogBody1
+    100040: cogBody2
+    100042: cogs
+    100044: cogWeapon
+    100046: cogWeapon 1
+    100048: eye
+    100050: eye1
+    100052: eyeBall
+    100054: eyeBall2
+    100056: eyePipe
+    100058: foot
+    100060: head
+    100062: //RootNode
+    100064: polySurface16
+    100066: polySurface16 1
+    100068: polySurface17
+    100070: polySurface17 1
+    100072: polySurface21
+    100074: polySurface21 1
+    100076: polySurface22
+    100078: polySurface22 1
+    100080: Propeller
+    100082: propeller
+    100084: propeller1
+    100086: propeller2
+    100088: shoulder
+    100090: shoulder 1
+    100092: Shoulder_Control
+    100094: Shoulder_Control1
+    100096: weaponTip
+    100098: weaponTip 1
+    400000: arm
+    400002: arm 1
+    400004: arm2
+    400006: arm2 1
+    400008: arm2CogJoint
+    400010: arm2CogJoint 1
+    400012: arm2Control
+    400014: arm2Control 1
+    400016: arm3
+    400018: arm3 1
+    400020: armCogJoint
+    400022: armCogJoint 1
+    400024: band
+    400026: Body
+    400028: body
+    400030: chin
+    400032: chinGrill
+    400034: chinPipe
+    400036: cogBody
+    400038: cogBody1
+    400040: cogBody2
+    400042: cogs
+    400044: cogWeapon
+    400046: cogWeapon 1
+    400048: eye
+    400050: eye1
+    400052: eyeBall
+    400054: eyeBall2
+    400056: eyePipe
+    400058: foot
+    400060: head
+    400062: //RootNode
+    400064: polySurface16
+    400066: polySurface16 1
+    400068: polySurface17
+    400070: polySurface17 1
+    400072: polySurface21
+    400074: polySurface21 1
+    400076: polySurface22
+    400078: polySurface22 1
+    400080: Propeller
+    400082: propeller
+    400084: propeller1
+    400086: propeller2
+    400088: shoulder
+    400090: shoulder 1
+    400092: Shoulder_Control
+    400094: Shoulder_Control1
+    400096: weaponTip
+    400098: weaponTip 1
+    2300000: arm
+    2300002: arm 1
+    2300004: arm2
+    2300006: arm2 1
+    2300008: arm3
+    2300010: arm3 1
+    2300012: armCogJoint
+    2300014: armCogJoint 1
+    2300016: band
+    2300018: Body
+    2300020: chin
+    2300022: chinGrill
+    2300024: chinPipe
+    2300026: cogBody
+    2300028: cogBody1
+    2300030: cogBody2
+    2300032: eye
+    2300034: eye1
+    2300036: eyeBall
+    2300038: eyeBall2
+    2300040: eyePipe
+    2300042: foot
+    2300044: polySurface16
+    2300046: polySurface16 1
+    2300048: polySurface17
+    2300050: polySurface17 1
+    2300052: polySurface21
+    2300054: polySurface21 1
+    2300056: polySurface22
+    2300058: polySurface22 1
+    2300060: propeller
+    2300062: propeller1
+    2300064: propeller2
+    2300066: shoulder
+    2300068: shoulder 1
+    2300070: weaponTip
+    2300072: weaponTip 1
+    3300000: arm
+    3300002: arm 1
+    3300004: arm2
+    3300006: arm2 1
+    3300008: arm3
+    3300010: arm3 1
+    3300012: armCogJoint
+    3300014: armCogJoint 1
+    3300016: band
+    3300018: Body
+    3300020: chin
+    3300022: chinGrill
+    3300024: chinPipe
+    3300026: cogBody
+    3300028: cogBody1
+    3300030: cogBody2
+    3300032: eye
+    3300034: eye1
+    3300036: eyeBall
+    3300038: eyeBall2
+    3300040: eyePipe
+    3300042: foot
+    3300044: polySurface16
+    3300046: polySurface16 1
+    3300048: polySurface17
+    3300050: polySurface17 1
+    3300052: polySurface21
+    3300054: polySurface21 1
+    3300056: polySurface22
+    3300058: polySurface22 1
+    3300060: propeller
+    3300062: propeller1
+    3300064: propeller2
+    3300066: shoulder
+    3300068: shoulder 1
+    3300070: weaponTip
+    3300072: weaponTip 1
+    4300000: Body
+    4300002: cogBody
+    4300004: cogBody1
+    4300006: cogBody2
+    4300008: eye1
+    4300010: eye
+    4300012: eyeBall2
+    4300014: eyeBall
+    4300016: band
+    4300018: chinGrill
+    4300020: chin
+    4300022: chinPipe
+    4300024: foot
+    4300026: eyePipe
+    4300028: armCogJoint
+    4300030: arm
+    4300032: shoulder
+    4300034: arm3
+    4300036: polySurface22
+    4300038: polySurface21
+    4300040: weaponTip
+    4300042: arm2
+    4300044: polySurface17
+    4300046: polySurface16
+    4300048: propeller2
+    4300050: propeller1
+    4300052: propeller
+    4300054: armCogJoint
+    4300056: arm
+    4300058: shoulder
+    4300060: arm3
+    4300062: polySurface22
+    4300064: polySurface21
+    4300066: weaponTip
+    4300068: arm2
+    4300070: polySurface17
+    4300072: polySurface16
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 
