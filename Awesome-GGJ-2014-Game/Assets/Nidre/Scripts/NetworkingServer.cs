@@ -61,15 +61,27 @@ public class NetworkingServer : MonoBehaviour
 
 
     [RPC]
-    public void SpawnNewEnemy(Vector3 position, int id)
+    public void SpawnNewEnemy(Vector3 position, int id, int style)
     {
 
     }
 
     [RPC]
-    public void GetAndSpawnNewEnemy(Vector3 position, int id)
+    public void GetAndSpawnNewEnemy(Vector3 position, int id, int style)
     {
-        spawner.Spawn(position, id);
+        spawner.Spawn(position, id , (uberAwesomeMogaMecha.Style)style);
+    }
+
+    [RPC]
+    public void SendBigBadWold(int wolf)
+    {
+
+    }
+
+    [RPC]
+    public void GetBigBadWold(int wolf)
+    {
+        spawner._bigBadWolf = (uberAwesomeMogaMecha.Style)wolf;
     }
 
     [RPC]

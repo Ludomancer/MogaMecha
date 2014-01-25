@@ -125,7 +125,7 @@ public class PunchingBag : MonoBehaviour
 
     void Shoot(Vector3 pos)
     {
-        Vector3 initPos = (Vector3.up * 2) + (Camera.main.transform.forward * 5);
+        Vector3 initPos = (Camera.main.transform.forward * 5);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += initPos;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
@@ -136,7 +136,7 @@ public class PunchingBag : MonoBehaviour
     void Shotgun(Vector3 pos)
     {
         Vector3[] array = new Vector3[6];
-        Vector3 initPos = (Vector3.up * 2) + (Camera.main.transform.forward * 5);
+        Vector3 initPos = (Camera.main.transform.forward * 5);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += initPos;
         array[0] = mentosCopy.transform.position;
