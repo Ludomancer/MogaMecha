@@ -20,7 +20,6 @@ public class Spawner : MonoBehaviour
     {
         if (!nt.isConnected) return;
         _bigBadWolf = (uberAwesomeMogaMecha.Style)Random.Range(0, 5);
-        print((int)_bigBadWolf);
         nt.SendBigBadWold((int)_bigBadWolf);
         Vector3 _pos;
         for (int i = 0; i < 5; i++)

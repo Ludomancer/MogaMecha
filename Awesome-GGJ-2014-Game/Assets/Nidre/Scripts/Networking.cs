@@ -88,26 +88,22 @@ public class Networking : MonoBehaviour
     [RPC]
     public void AddLeftShell()
     {
-        print("addLeft");
         _pb.availableLeftShell++;
     }
     [RPC]
     public void AddRightShell()
     {
-        print("addRight");
         _pb.availableRightShell++;
     }
 
     [RPC]
     public void RemoveLeftShell()
     {
-        print("removeLeft");
         nw.RPC("RemoveLeftShell", RPCMode.Others);
     }
     [RPC]
     public void RemoveRightShell()
     {
-        print("removeRight");
         nw.RPC("RemoveRightShell", RPCMode.Others);
     }
 
