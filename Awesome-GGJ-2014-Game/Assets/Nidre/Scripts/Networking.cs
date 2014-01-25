@@ -55,20 +55,10 @@ public class Networking : MonoBehaviour
         string stringOfAllFloats = "";
         for (int i = 0; i < positions.Length; i++)
         {
-            stringOfAllFloats += positions[i].ToString() + "-";
+            stringOfAllFloats += positions[i].ToString() + "*";
         }
         stringOfAllFloats = stringOfAllFloats.Replace("(", "");
         stringOfAllFloats = stringOfAllFloats.Replace(")", "");
-        string[] split = stringOfAllFloats.Split('-');
-        Vector3[] p = new Vector3[split.Length - 1];
-        for (int i = 0; i < p.Length; i++)
-        {
-            string[] vector3 = split[i].Split(',');
-            print(vector3[0] + " : " + vector3[1] + " : " + vector3[2]);
-            p[i] = new Vector3(float.Parse(vector3[0]), float.Parse(vector3[1]), float.Parse(vector3[2]));
-            print(p[i]);
-        }
-        return;
         nw.RPC("GetMentosPosition", RPCMode.Others, stringOfAllFloats);
 
     }
@@ -87,6 +77,12 @@ public class Networking : MonoBehaviour
         {
             Debug.Log(ids[i]);
         }
+    }
+
+    [RPC]
+    public void GetMentosPosition(string data)
+    {
+ 
     }
 
     // [RPC]
