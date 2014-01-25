@@ -1,0 +1,13 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Leap Starter Kit\Leap Scenes\Boxing\PunchingBagServer.cs">
+    <Files>
+      <File FileName="Assets\Nidre\Scripts\NetworkingServer.cs" Line="76" Column="44" />
+      <File FileName="Assets\Scripts\Leap Starter Kit\Leap Scenes\Boxing\PunchingBagServer.cs" Line="126" Column="48" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
