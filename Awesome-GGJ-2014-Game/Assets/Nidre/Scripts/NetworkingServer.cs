@@ -3,6 +3,7 @@ using System.Collections;
 
 public class NetworkingServer : MonoBehaviour
 {
+    Load _loader;
     NetworkView nw;
     public PunchingBagServer _pb;
     Spawner spawner;
@@ -13,6 +14,7 @@ public class NetworkingServer : MonoBehaviour
         nw = GetComponent<NetworkView>();
         LaunchServer();
         spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
+        _loader = Camera.main.GetComponent<Load>();
         //NetworkConnectionError ne = Network.Connect("10.0.27.129", 80);
 
         //Debug.Log(ne);
@@ -35,6 +37,23 @@ public class NetworkingServer : MonoBehaviour
         nw.RPC("AddRightShell", RPCMode.Others);
     }
 
+    [RPC]
+    public void RemoveLeftShell()
+    {
+        if(_loader != null)
+        {
+            _loader.LeftHave--;
+        }
+    }
+    [RPC]
+    public void RemoveRightShell()
+    {
+        if (_loader != null)
+        {
+            _loader.RightHave--;
+        }
+    }
+
     void OnServerInitialized()
     {
         isServer = true;
@@ -54,6 +73,7 @@ public class NetworkingServer : MonoBehaviour
 
     void OnPlayerConnected(NetworkPlayer player)
     {
+
         Debug.Log("Player " + " connected from " + player.ipAddress);
     }
 

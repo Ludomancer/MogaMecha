@@ -3,16 +3,26 @@ using System.Collections;
 
 public class Networking : MonoBehaviour
 {
+    Load _loader;
     NetworkView nw;
     public PunchingBag _pb;
+    public bool isConnected;
+    public string url = "10.0.27.129";
+    public int port = 80;
     // Use this for initialization
     void Start()
     {
         nw = GetComponent<NetworkView>();
-        //LaunchServer();
-        NetworkConnectionError ne = Network.Connect("10.0.27.129", 80);
+        _loader = Camera.main.GetComponent<Load>();
+    }
 
-        Debug.Log(ne);
+    void OnGUI()
+    {
+        if (!isConnected && GUI.Button(new Rect(10, 10, 200, 50), "Connect"))
+        {
+            Debug.Log("Connect");
+            NetworkConnectionError ne = Network.Connect(url, port);
+        }
     }
 
     // Update is called once per frame
@@ -29,12 +39,14 @@ public class Networking : MonoBehaviour
 
     void OnConnectedToServer()
     {
+        isConnected = true;
         Debug.Log("Connected");
         nw.RPC("PrintText", RPCMode.Others, "Osman");
     }
 
     void OnFailedToConnect()
     {
+        isConnected = false;
         Debug.Log("Zic");
     }
 
@@ -73,15 +85,30 @@ public class Networking : MonoBehaviour
         }
         nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
-
+    [RPC]
     public void AddLeftShell()
     {
+        print("addLeft");
         _pb.availableLeftShell++;
     }
-
+    [RPC]
     public void AddRightShell()
     {
-        _pb.availableLeftShell--;
+        print("addRight");
+        _pb.availableRightShell++;
+    }
+
+    [RPC]
+    public void RemoveLeftShell()
+    {
+        print("removeLeft");
+        nw.RPC("RemoveLeftShell", RPCMode.Others);
+    }
+    [RPC]
+    public void RemoveRightShell()
+    {
+        print("removeRight");
+        nw.RPC("RemoveRightShell", RPCMode.Others);
     }
 
 
