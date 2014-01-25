@@ -21,10 +21,11 @@ public class Spawner : MonoBehaviour
         _pos = transform.position;
         _pos += Vector3.right * Random.Range(-25f, 25f);
         goList.Add(Instantiate(uberAwesomeMogaMecha, _pos, Quaternion.identity) as GameObject);
-        nt.SpawnNewEnemy(_pos, goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id);
+        print(goList[goList.Count - 1].transform.position);
+        nt.SpawnNewEnemy(goList[goList.Count - 1].transform.position, goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id);
     }
 
-    public void Spawn(Vector2 pos, int id)
+    public void Spawn(Vector3 pos, int id)
     {
         goList.Add(Instantiate(uberAwesomeMogaMecha, pos, Quaternion.identity) as GameObject);
         goList[goList.Count - 1].GetComponent<uberAwesomeMogaMecha>().id = id;
