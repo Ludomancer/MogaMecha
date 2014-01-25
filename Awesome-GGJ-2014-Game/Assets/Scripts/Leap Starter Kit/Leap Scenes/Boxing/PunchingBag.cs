@@ -104,12 +104,14 @@ public class PunchingBag : MonoBehaviour
             {
                 Shoot(h2.transform.position);
                 availableRightShell--;
+                nt.RemoveRightShell();
                 isFirstHand = false;
             }
             else if (canFire(h1) && availableLeftShell > 0)
             {
                 Shoot(h1.transform.position);
                 availableLeftShell--;
+                nt.RemoveLeftShell();
                 isFirstHand = true;
             }
         }
