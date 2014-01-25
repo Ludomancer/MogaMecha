@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class    PunchingBag : MonoBehaviour
+public class PunchingBag : MonoBehaviour
 {
     Networking nt;
     public GameObject mentos;
@@ -130,30 +130,32 @@ public class    PunchingBag : MonoBehaviour
         mentosCopy.transform.position += initPos;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         shotSuccess = true;
-
-        nt.SendMentosPosition(mentosCopy.transform.position);
+        nt.SendMentosPosition(new Vector3[] { mentosCopy.transform.position, Camera.main.transform.forward * force });
     }
 
     void Shotgun(Vector3 pos)
     {
-        Vector3[] array =  new Vector3[3];
+        Vector3[] array = new Vector3[6];
         Vector3 initPos = (Vector3.up * 2) + (Camera.main.transform.forward * 5);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += initPos;
         array[0] = mentosCopy.transform.position;
+        array[1] = Camera.main.transform.forward * force;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
 
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += (Camera.main.transform.right * 3) + initPos;
-        array[1] = mentosCopy.transform.position;
+        array[2] = mentosCopy.transform.position;
+        array[3] = Camera.main.transform.forward * force;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
         mentosCopy.transform.position += -(Camera.main.transform.right * 3) + initPos;
-        array[2] = mentosCopy.transform.position;
+        array[4] = mentosCopy.transform.position;
+        array[5] = Camera.main.transform.forward * force;
         mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
         shotSuccess = true;
 
-         nt.SendMentosPosition(array);
+        nt.SendMentosPosition(array);
     }
 
     bool isHandExists(UnityHand h)

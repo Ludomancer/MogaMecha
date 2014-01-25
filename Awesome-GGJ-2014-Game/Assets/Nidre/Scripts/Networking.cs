@@ -30,7 +30,7 @@ public class Networking : MonoBehaviour
     void OnConnectedToServer()
     {
         Debug.Log("Connected");
-        nw.RPC("PrintText", RPCMode.All, "Osman");
+        nw.RPC("PrintText", RPCMode.Others, "Osman");
     }
 
     void OnFailedToConnect()
@@ -49,19 +49,37 @@ public class Networking : MonoBehaviour
         Debug.Log(test);
     }
 
-     [RPC]
-    public void SendMentosPosition(params Vector3[] positions)
+    [RPC]
+    public void SendMentosPosition(Vector3[] positions)
     {
-        nw.RPC("GetMentosPosition", RPCMode.All, positions);
+        string stringOfAllFloats = "";
+        for (int i = 0; i < positions.Length; i++)
+        {
+            stringOfAllFloats += positions[i].ToString() + "-";
+        }
+        stringOfAllFloats = stringOfAllFloats.Replace("(", "");
+        stringOfAllFloats = stringOfAllFloats.Replace(")", "");
+        string[] split = stringOfAllFloats.Split('-');
+        Vector3[] p = new Vector3[split.Length - 1];
+        for (int i = 0; i < p.Length; i++)
+        {
+            string[] vector3 = split[i].Split(',');
+            print(vector3[0] + " : " + vector3[1] + " : " + vector3[2]);
+            p[i] = new Vector3(float.Parse(vector3[0]), float.Parse(vector3[1]), float.Parse(vector3[2]));
+            print(p[i]);
+        }
+        return;
+        nw.RPC("GetMentosPosition", RPCMode.Others, stringOfAllFloats);
+
     }
 
-     [RPC]
+    [RPC]
     public void SendDeadEnemyId(params int[] ids)
     {
-        nw.RPC("GetDeadEnemyId", RPCMode.All, ids);
+        nw.RPC("GetDeadEnemyId", RPCMode.Others, ids);
     }
 
-     [RPC]
+    [RPC]
     public void GetDeadEnemyId(params int[] ids)
     {
         Debug.Log("Recieved Enemy");
@@ -71,14 +89,14 @@ public class Networking : MonoBehaviour
         }
     }
 
-     [RPC]
-    public void GetMentosPosition(params Vector3[] positions)
-    {
-        Debug.Log("Recieved Mentos");
-        for (int i = 0; i < positions.Length; i++)
-        {
-            Debug.Log(positions[i]);
-        }
-        _pb.ShootMentosFromServer(positions);
-    }
+    // [RPC]
+    //public void GetMentosPosition(Vector3[] positions)
+    //{
+    //    Debug.Log("Recieved Mentos");
+    //    for (int i = 0; i < positions.Length; i++)
+    //    {
+    //        Debug.Log(positions[i]);
+    //    }
+    //    _pb.ShootMentosFromServer(positions);
+    //}
 }
