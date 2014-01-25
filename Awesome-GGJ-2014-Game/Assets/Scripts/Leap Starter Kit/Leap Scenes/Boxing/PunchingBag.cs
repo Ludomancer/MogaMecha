@@ -4,12 +4,25 @@ using System.Collections;
 public class PunchingBag : MonoBehaviour
 {
     Networking nt;
-    public GameObject mentos;
-    GameObject mentosCopy;
     float lastShot;
-    float interval = 0.2f;
-    float doubleInterval = 1.5f;
-    float doubleStartTime;
+    private float interval = 1f;
+    private float doubleInterval = 0.25f;
+    private float currentInterval;
+
+    public float CurrentInterval
+    {
+        get { return currentInterval; }
+        set 
+        {
+            if (currentInterval > 0)
+            {
+                _mechaController.animation["Left Shot"].speed *= currentInterval / value;
+                _mechaController.animation["Right Shot"].speed *= currentInterval / value;
+            }
+            currentInterval = value;
+        }
+    }
+    float startWait;
     bool isDouble;
     bool shotSuccess = false;
     public float force = 3000;
@@ -17,6 +30,7 @@ public class PunchingBag : MonoBehaviour
     UnityHand h2;
     Renderer ind1;
     Renderer ind2;
+    UpdateMechaRotation _mechaController;
     bool isFirstHand;
 
     public Material ok;
@@ -65,14 +79,27 @@ public class PunchingBag : MonoBehaviour
         nt = GameObject.Find("Networking").GetComponent<Networking>();
         h1 = hc.unityHands[0];
         h2 = hc.unityHands[1];
+        _mechaController = GameObject.Find("Mecha").GetComponent<UpdateMechaRotation>();
+
+        interval = _mechaController.animation.GetClip("Left Shot").length;
     }
 
     void Update()
     {
-        if (Time.realtimeSinceStartup - lastShot < interval) return;
+        if (!_mechaController.isReady)
+        {
+            if (canFire(h1) && canFire(h2))
+            {
+                startWait += Time.deltaTime;
+                if (startWait > 1) _mechaController.Startup();
+            }
+            return;
+        }
+        if (Time.realtimeSinceStartup - lastShot < currentInterval) return;
+        startWait += Time.deltaTime;
         //print(canFire(h1) + " : " + canFire(h2));
         shotSuccess = false;
-
+        //availableRightShell = availableLeftShell = 5;
         if (availableRightShell > 0)
         {
             ind1.sharedMaterial = ok;
@@ -90,80 +117,50 @@ public class PunchingBag : MonoBehaviour
             ind2.sharedMaterial = wait;
         }
 
-        if (canFire(h1) && canFire(h2))
+        if (startWait > 10 && canFire(h1) && canFire(h2))
         {
-            Double();
+            CurrentInterval = doubleInterval;
+            if (isFirstHand)
+            {
+                availableRightShell--;
+                nt.RemoveRightShell();
+                _mechaController.RightShot();
+            }
+            else
+            {
+                availableLeftShell--;
+                nt.RemoveLeftShell();
+                _mechaController.LeftShot();
+            }
+            isFirstHand = !isFirstHand;
+             
+            //    Double();
             //ind2.sharedMaterial = uber;
             //ind1.sharedMaterial = uber;
         }
         else
         {
-            doubleStartTime = 0;
+            CurrentInterval = interval;
             if (canFire(h2) && availableRightShell > 0)
             {
                 availableRightShell--;
                 nt.RemoveRightShell();
-                Shoot(h2.transform.position);
+                //Shoot(h2.transform.position);
+                _mechaController.RightShot();
                 isFirstHand = false;
             }
             else if (canFire(h1) && availableLeftShell > 0)
             {
                 availableLeftShell--;
                 nt.RemoveLeftShell();
-                Shoot(h1.transform.position);
+                //Shoot(h1.transform.position);
+                _mechaController.LeftShot();
                 isFirstHand = true;
             }
         }
         lastShot = Time.realtimeSinceStartup;
     }
 
-    private void Double()
-    {
-        if (doubleStartTime == 0)
-        {
-            doubleStartTime = Time.realtimeSinceStartup;
-        }
-        if (Time.realtimeSinceStartup - doubleStartTime > doubleInterval)
-        {
-            Shotgun(h1.transform.position);
-            doubleStartTime = 0;
-        }
-    }
-
-    void Shoot(Vector3 pos)
-    {
-        Vector3 initPos = (Camera.main.transform.forward * 5);
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += initPos;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-        shotSuccess = true;
-        nt.SendMentosPosition(new Vector3[] { mentosCopy.transform.position, Camera.main.transform.forward * force });
-    }
-
-    void Shotgun(Vector3 pos)
-    {
-        Vector3[] array = new Vector3[6];
-        Vector3 initPos = (Camera.main.transform.forward * 5);
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += initPos;
-        array[0] = mentosCopy.transform.position;
-        array[1] = Camera.main.transform.forward * force;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += (Camera.main.transform.right * 3) + initPos;
-        array[2] = mentosCopy.transform.position;
-        array[3] = Camera.main.transform.forward * force;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-        mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-        mentosCopy.transform.position += -(Camera.main.transform.right * 3) + initPos;
-        array[4] = mentosCopy.transform.position;
-        array[5] = Camera.main.transform.forward * force;
-        mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-        shotSuccess = true;
-
-        nt.SendMentosPosition(array);
-    }
 
     bool isHandExists(UnityHand h)
     {
@@ -188,7 +185,7 @@ public class PunchingBag : MonoBehaviour
     {
         for (int i = 0; i < positions.Length; i++)
         {
-            Shoot(positions[i]);
+            //Shoot(positions[i]);
         }
     }
 }
