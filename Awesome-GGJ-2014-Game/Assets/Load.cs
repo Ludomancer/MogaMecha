@@ -11,8 +11,28 @@ public class Load : MonoBehaviour
 
     int left;
     int right;
-    public int leftHave;
-    public int rightHave;
+    private int leftHave;
+
+    public int LeftHave
+    {
+        get { return leftHave; }
+        set
+        {
+            _leftHave.text = value.ToString();
+            leftHave = value;
+        }
+    }
+    private int rightHave;
+
+    public int RightHave
+    {
+        get { return rightHave; }
+        set 
+        {
+            _rightHave.text = value.ToString();
+            rightHave = value; 
+        }
+    }
 
     int max = 10;
 

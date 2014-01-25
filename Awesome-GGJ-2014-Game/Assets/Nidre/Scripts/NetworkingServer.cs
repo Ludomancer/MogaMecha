@@ -42,7 +42,7 @@ public class NetworkingServer : MonoBehaviour
     {
         if(_loader != null)
         {
-            _loader.leftHave--;
+            _loader.LeftHave--;
         }
     }
     [RPC]
@@ -50,7 +50,7 @@ public class NetworkingServer : MonoBehaviour
     {
         if (_loader != null)
         {
-            _loader.rightHave--;
+            _loader.RightHave--;
         }
     }
 
