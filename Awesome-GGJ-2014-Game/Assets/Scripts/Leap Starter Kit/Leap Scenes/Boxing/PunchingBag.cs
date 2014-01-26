@@ -1,4 +1,4 @@
-﻿//#define MOUSE_CONTROL
+﻿#define MOUSE_CONTROL
 
 using UnityEngine;
 using System.Collections;
@@ -41,6 +41,7 @@ public class PunchingBag : MonoBehaviour
 
     public int availableLeftShell;
     public int availableRightShell;
+    bool isMouse = false;
 
     //public void OnCollisionEnter(Collision collision)
     //{
@@ -90,21 +91,22 @@ public class PunchingBag : MonoBehaviour
     {
         if (!_mechaController.isReady)
         {
-#if MOUSE_CONTROL
             if (Input.GetMouseButtonDown(2))
             {
                 _mechaController.Startup();
+                isMouse = true;
             }
 
-            return;
-#else
             if (canFire(h1) && canFire(h2))
             {
                 startWait += Time.deltaTime;
-                if (startWait > 1) _mechaController.Startup();
+                if (startWait > 1)
+                {
+                    _mechaController.Startup();
+                    isMouse = false;
+                }
             }
             return;
-#endif
         }
         startWait += Time.deltaTime;
         if (Time.realtimeSinceStartup - lastShot < currentInterval || startWait < 5) return;
@@ -128,27 +130,10 @@ public class PunchingBag : MonoBehaviour
             ind2.sharedMaterial = wait;
         }
 
-#if MOUSE_CONTROL
-        if (Input.GetMouseButtonDown(0))
-        {
-            availableRightShell--;
-            nt.RemoveRightShell();
-            _mechaController.RightShot();
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            availableLeftShell--;
-            nt.RemoveLeftShell();
-            _mechaController.LeftShot();
-        }
 
-        return;
-#endif
-
-        if (startWait > 10 && canFire(h1) && canFire(h2))
+        if (isMouse)
         {
-            CurrentInterval = doubleInterval;
-            if (isFirstHand)
+            if (Input.GetMouseButtonDown(0) && isFirstHand)
             {
                 if (availableRightShell > 0)
                 {
@@ -157,7 +142,7 @@ public class PunchingBag : MonoBehaviour
                     _mechaController.RightShot();
                 }
             }
-            else
+            else if (Input.GetMouseButtonDown(1) && !isFirstHand)
             {
                 if (availableLeftShell > 0)
                 {
@@ -167,29 +152,56 @@ public class PunchingBag : MonoBehaviour
                 }
             }
             isFirstHand = !isFirstHand;
-
-            //    Double();
-            //ind2.sharedMaterial = uber;
-            //ind1.sharedMaterial = uber;
         }
         else
         {
-            CurrentInterval = interval;
-            if (canFire(h2) && availableRightShell > 0)
+
+            if (startWait > 10 && canFire(h1) && canFire(h2))
             {
-                availableRightShell--;
-                nt.RemoveRightShell();
-                //Shoot(h2.transform.position);
-                _mechaController.RightShot();
-                isFirstHand = false;
+                CurrentInterval = doubleInterval;
+                if (isFirstHand)
+                {
+                    if (availableRightShell > 0)
+                    {
+                        availableRightShell--;
+                        nt.RemoveRightShell();
+                        _mechaController.RightShot();
+                    }
+                }
+                else
+                {
+                    if (availableLeftShell > 0)
+                    {
+                        availableLeftShell--;
+                        nt.RemoveLeftShell();
+                        _mechaController.LeftShot();
+                    }
+                }
+                isFirstHand = !isFirstHand;
+
+                //    Double();
+                //ind2.sharedMaterial = uber;
+                //ind1.sharedMaterial = uber;
             }
-            else if (canFire(h1) && availableLeftShell > 0)
+            else
             {
-                availableLeftShell--;
-                nt.RemoveLeftShell();
-                //Shoot(h1.transform.position);
-                _mechaController.LeftShot();
-                isFirstHand = true;
+                CurrentInterval = interval;
+                if (canFire(h2) && availableRightShell > 0)
+                {
+                    availableRightShell--;
+                    nt.RemoveRightShell();
+                    //Shoot(h2.transform.position);
+                    _mechaController.RightShot();
+                    isFirstHand = false;
+                }
+                else if (canFire(h1) && availableLeftShell > 0)
+                {
+                    availableLeftShell--;
+                    nt.RemoveLeftShell();
+                    //Shoot(h1.transform.position);
+                    _mechaController.LeftShot();
+                    isFirstHand = true;
+                }
             }
         }
         lastShot = Time.realtimeSinceStartup;
