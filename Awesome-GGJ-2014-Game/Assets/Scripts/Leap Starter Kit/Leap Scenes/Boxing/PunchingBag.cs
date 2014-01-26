@@ -14,7 +14,7 @@ public class PunchingBag : MonoBehaviour
     public float CurrentInterval
     {
         get { return currentInterval; }
-        set 
+        set
         {
             if (currentInterval > 0)
             {
@@ -150,18 +150,24 @@ public class PunchingBag : MonoBehaviour
             CurrentInterval = doubleInterval;
             if (isFirstHand)
             {
-                availableRightShell--;
-                nt.RemoveRightShell();
-                _mechaController.RightShot();
+                if (availableRightShell > 0)
+                {
+                    availableRightShell--;
+                    nt.RemoveRightShell();
+                    _mechaController.RightShot();
+                }
             }
             else
             {
-                availableLeftShell--;
-                nt.RemoveLeftShell();
-                _mechaController.LeftShot();
+                if (availableLeftShell > 0)
+                {
+                    availableLeftShell--;
+                    nt.RemoveLeftShell();
+                    _mechaController.LeftShot();
+                }
             }
             isFirstHand = !isFirstHand;
-             
+
             //    Double();
             //ind2.sharedMaterial = uber;
             //ind1.sharedMaterial = uber;
