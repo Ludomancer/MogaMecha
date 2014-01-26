@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#define MOUSE_CONTROL
+
+using UnityEngine;
 using System.Collections;
 
 public class PunchingBag : MonoBehaviour
@@ -88,12 +90,21 @@ public class PunchingBag : MonoBehaviour
     {
         if (!_mechaController.isReady)
         {
+#if MOUSE_CONTROL
+            if (Input.GetMouseButtonDown(2))
+            {
+                _mechaController.Startup();
+            }
+
+            return;
+#else
             if (canFire(h1) && canFire(h2))
             {
                 startWait += Time.deltaTime;
                 if (startWait > 1) _mechaController.Startup();
             }
             return;
+#endif
         }
         startWait += Time.deltaTime;
         if (Time.realtimeSinceStartup - lastShot < currentInterval || startWait < 5) return;
@@ -116,6 +127,23 @@ public class PunchingBag : MonoBehaviour
         {
             ind2.sharedMaterial = wait;
         }
+
+#if MOUSE_CONTROL
+        if (Input.GetMouseButtonDown(0))
+        {
+            availableRightShell--;
+            nt.RemoveRightShell();
+            _mechaController.RightShot();
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            availableLeftShell--;
+            nt.RemoveLeftShell();
+            _mechaController.LeftShot();
+        }
+
+        return;
+#endif
 
         if (startWait > 10 && canFire(h1) && canFire(h2))
         {
