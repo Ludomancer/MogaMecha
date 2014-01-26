@@ -78,7 +78,7 @@ public class NetworkingServer : MonoBehaviour
         _loader.PlayerStatusChanged(player, true);
     }
 
-    void OnPlayerDisConnected(NetworkPlayer player)
+    void OnPlayerDisconnected(NetworkPlayer player)
     {
         Debug.Log("Player " + " disconnected from " + player.ipAddress);
         _loader.PlayerStatusChanged(player, false);

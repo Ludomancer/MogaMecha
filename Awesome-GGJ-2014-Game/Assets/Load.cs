@@ -97,6 +97,7 @@ public class Load : MonoBehaviour
             yield return null;
         }
         _player.text = "";
+        _player.color = new Color(1, 1, 1, 1);
     }
 
     void Update()

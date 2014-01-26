@@ -60,7 +60,7 @@ public class Networking : MonoBehaviour
         Debug.Log("Player " + " connected from " + player.ipAddress);
     }
 
-    void OnPlayerDisConnected(NetworkPlayer player)
+    void OnPlayerDisconnected(NetworkPlayer player)
     {
         Debug.Log("Player " + " disconnected from " + player.ipAddress);
     }
