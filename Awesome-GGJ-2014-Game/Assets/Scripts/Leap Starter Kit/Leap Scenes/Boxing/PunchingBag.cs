@@ -1,4 +1,4 @@
-﻿#define MOUSE_CONTROL
+﻿//#define MOUSE_CONTROL
 
 using UnityEngine;
 using System.Collections;

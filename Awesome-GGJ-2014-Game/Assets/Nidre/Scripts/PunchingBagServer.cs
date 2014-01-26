@@ -52,8 +52,11 @@ public class    PunchingBagServer : MonoBehaviour
 
     void Start()
     {
-        LeapHandController hc = GameObject.Find("Leap Controller Multiple/_leapController").GetComponent<LeapHandController>();
         nt = GameObject.Find("Networking").GetComponent<NetworkingServer>();
+        if (nt == null)
+        {
+            LeapHandController hc = GameObject.Find("Leap Controller Multiple/_leapController").GetComponent<LeapHandController>();
+        }
     }      	
 
     private void Double()
