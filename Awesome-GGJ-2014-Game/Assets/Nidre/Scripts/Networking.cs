@@ -41,7 +41,6 @@ public class Networking : MonoBehaviour
     {
         isConnected = true;
         Debug.Log("Connected");
-        nw.RPC("PrintText", RPCMode.Others, "Osman");
     }
 
     void OnFailedToConnect()
@@ -50,9 +49,20 @@ public class Networking : MonoBehaviour
         Debug.Log("Zic");
     }
 
+    void OnDisconnectedFromServer(NetworkDisconnection info)
+    {
+        isConnected = false;
+        Debug.Log("Disconnected " + info.ToString());
+    }
+
     void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("Player " + " connected from " + player.ipAddress);
+    }
+
+    void OnPlayerDisConnected(NetworkPlayer player)
+    {
+        Debug.Log("Player " + " disconnected from " + player.ipAddress);
     }
 
     [RPC]
@@ -123,6 +133,7 @@ public class Networking : MonoBehaviour
     [RPC]
     public void SendBigBadWold(int wolf)
     {
+        print("SEND : " + ((uberAwesomeMogaMecha.Style)wolf).ToString());
         nw.RPC("GetBigBadWold", RPCMode.Others, wolf);
     }
 

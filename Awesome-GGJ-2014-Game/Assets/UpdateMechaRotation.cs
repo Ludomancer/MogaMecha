@@ -45,12 +45,25 @@ public class UpdateMechaRotation : MonoBehaviour
 
     IEnumerator StartupRoutine()
     {
+        StartCoroutine("HideText");
         isPreparing = true;
         startupSound.Play();
         anim.Play("Startup");
         yield return new WaitForSeconds(anim.GetClip("Startup").length);
         audio.Play();
         isReady = true;
+    }
+
+    IEnumerator HideText()
+    {
+        TextMesh text = transform.FindChild("Tutorial").GetComponent<TextMesh>();
+        float val = 1;
+        while (val > 0)
+        {
+            val -= Time.deltaTime;
+            text.color = new Color(1, 1, 1, val);
+            yield return null;
+        }
     }
 
     public void LeftShot()

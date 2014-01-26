@@ -71,10 +71,17 @@ public class NetworkingServer : MonoBehaviour
         Debug.Log("Zic");
     }
 
+
     void OnPlayerConnected(NetworkPlayer player)
     {
-
         Debug.Log("Player " + " connected from " + player.ipAddress);
+        _loader.PlayerStatusChanged(player, true);
+    }
+
+    void OnPlayerDisConnected(NetworkPlayer player)
+    {
+        Debug.Log("Player " + " disconnected from " + player.ipAddress);
+        _loader.PlayerStatusChanged(player, false);
     }
 
     [RPC]
@@ -111,6 +118,7 @@ public class NetworkingServer : MonoBehaviour
     [RPC]
     public void GetBigBadWold(int wolf)
     {
+        print("GET : " + ((uberAwesomeMogaMecha.Style)wolf).ToString());
         spawner._bigBadWolf = (uberAwesomeMogaMecha.Style)wolf;
     }
 

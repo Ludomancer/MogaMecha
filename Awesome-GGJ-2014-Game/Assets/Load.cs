@@ -10,6 +10,7 @@ public class Load : MonoBehaviour
     TextMesh _right;
     TextMesh _leftHave;
     TextMesh _rightHave;
+    TextMesh _player;
 
     int left;
     int right;
@@ -48,6 +49,7 @@ public class Load : MonoBehaviour
         _right = Camera.main.transform.FindChild("Right").GetComponent<TextMesh>();
         _leftHave = Camera.main.transform.FindChild("Left Have").GetComponent<TextMesh>();
         _rightHave = Camera.main.transform.FindChild("Right Have").GetComponent<TextMesh>();
+        _player = Camera.main.transform.FindChild("Player").GetComponent<TextMesh>();
         ns = GameObject.Find("Networking").GetComponent<NetworkingServer>();
         left = right = max;
         _left.text = _right.text = max.ToString();
@@ -76,6 +78,25 @@ public class Load : MonoBehaviour
             isLeft = true;
 
         }
+    }
+
+    public void PlayerStatusChanged(NetworkPlayer player, bool isLoggedIn)
+    {
+        if (isLoggedIn) _player.text = player.ipAddress + " has been connected.";
+        else _player.text = player.ipAddress + " has been disconnected.";
+        StartCoroutine("HidePlayerInfo");
+    }
+
+    IEnumerator HidePlayerInfo()
+    {
+        float val = 1;
+        while (val > 0)
+        {
+            val -= Time.deltaTime;
+            _player.color = new Color(1, 1, 1, val);
+            yield return null;
+        }
+        _player.text = "";
     }
 
     void Update()

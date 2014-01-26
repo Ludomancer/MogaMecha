@@ -6,11 +6,11 @@ public class uberAwesomeMogaMecha : MonoBehaviour
 
     public enum Style
     {
-        One,
-        Two,
-        Three,
-        Four,
-        Five
+        Mavi,
+        Sari,
+        Orange,
+        Purple,
+        White
     }
 
     public Style _style;
@@ -21,9 +21,11 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     public Material[] colors;
     public ParticleSystem _ps;
     private UpdateMechaRotation _mechaController;
+    private bool ifIamBigBadWolf;
 
     void Awake()
     {
+        Application.runInBackground = true;
         spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
         ns = GameObject.Find("Networking").GetComponent<NetworkingServer>();
         _ps = transform.FindChild("Puskur").particleSystem;
@@ -38,8 +40,8 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     public void SetStyleAndBadWolf(Style style)
     {
         _style = style;
-         transform.FindChild("Moga/middle/middle 1").renderer.sharedMaterial = colors[(int)_style];
-         transform.FindChild("Moga/upper/lid").renderer.sharedMaterial = colors[(int)_style];
+        transform.FindChild("Moga/middle/middle 1").renderer.sharedMaterial = colors[(int)_style];
+        transform.FindChild("Moga/upper/lid").renderer.sharedMaterial = colors[(int)_style];
         if (style == spawner._bigBadWolf)
         {
             transform.FindChild("Moga/middle/eye").renderer.sharedMaterial = _bigBadWolf;
@@ -58,6 +60,7 @@ public class uberAwesomeMogaMecha : MonoBehaviour
         {
             id = int.Parse(System.DateTime.Now.ToString("hhmmssff"));
             _style = (Style)Random.Range(0, 5);
+            ifIamBigBadWolf = _style == spawner._bigBadWolf;
             transform.FindChild("Moga/middle/middle 1").renderer.sharedMaterial = colors[(int)_style];
             transform.FindChild("Moga/upper/lid").renderer.sharedMaterial = colors[(int)_style];
             StartCoroutine("TimeOut");
@@ -71,13 +74,15 @@ public class uberAwesomeMogaMecha : MonoBehaviour
         {
             if (ns == null)
             {
-                if (_style == spawner._bigBadWolf) _mechaController.AddScore(250);
+
+                print("Collission : " + _style + " : " + spawner._bigBadWolf);
+                if (ifIamBigBadWolf) _mechaController.AddScore(250);
                 else _mechaController.AddScore(-100);
             }
             spawner.RemoveObject(gameObject);
             _ps.enableEmission = true;
             collider.enabled = false;
-            
+
         }
     }
 
