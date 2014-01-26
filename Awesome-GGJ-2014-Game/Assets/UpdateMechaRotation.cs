@@ -95,7 +95,7 @@ public class UpdateMechaRotation : MonoBehaviour
 
         if (Time.realtimeSinceStartup - lastCheck > target)
         {
-            targetX = 360 - Camera.main.transform.rotation.eulerAngles.x;
+            targetX = Camera.main.transform.rotation.eulerAngles.x;
             lastCheck = Time.realtimeSinceStartup;
         }
 
