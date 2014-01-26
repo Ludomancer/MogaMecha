@@ -38,8 +38,8 @@ public class uberAwesomeMogaMecha : MonoBehaviour
     public void SetStyleAndBadWolf(Style style)
     {
         _style = style;
-         transform.FindChild("Moga/middle/middle 1").renderer.sharedMaterial = colors[(int)_style];
-         transform.FindChild("Moga/upper/lid").renderer.sharedMaterial = colors[(int)_style];
+        transform.FindChild("Moga/middle/middle 1").renderer.sharedMaterial = colors[(int)_style];
+        transform.FindChild("Moga/upper/lid").renderer.sharedMaterial = colors[(int)_style];
         if (style == spawner._bigBadWolf)
         {
             transform.FindChild("Moga/middle/eye").renderer.sharedMaterial = _bigBadWolf;
@@ -71,13 +71,15 @@ public class uberAwesomeMogaMecha : MonoBehaviour
         {
             if (ns == null)
             {
+
+                print("Collission : " + _style + " : " + spawner._bigBadWolf);
                 if (_style == spawner._bigBadWolf) _mechaController.AddScore(250);
                 else _mechaController.AddScore(-100);
             }
             spawner.RemoveObject(gameObject);
             _ps.enableEmission = true;
             collider.enabled = false;
-            
+
         }
     }
 

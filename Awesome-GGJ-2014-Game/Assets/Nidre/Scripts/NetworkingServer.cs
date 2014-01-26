@@ -111,6 +111,7 @@ public class NetworkingServer : MonoBehaviour
     [RPC]
     public void GetBigBadWold(int wolf)
     {
+        print("GET : " + ((uberAwesomeMogaMecha.Style)wolf).ToString());
         spawner._bigBadWolf = (uberAwesomeMogaMecha.Style)wolf;
     }
 

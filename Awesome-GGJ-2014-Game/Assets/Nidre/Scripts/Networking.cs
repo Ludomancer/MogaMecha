@@ -123,6 +123,7 @@ public class Networking : MonoBehaviour
     [RPC]
     public void SendBigBadWold(int wolf)
     {
+        print("SEND : " + ((uberAwesomeMogaMecha.Style)wolf).ToString());
         nw.RPC("GetBigBadWold", RPCMode.Others, wolf);
     }
 
