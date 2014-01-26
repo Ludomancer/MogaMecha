@@ -31,6 +31,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+
     public void Spawn(Vector3 pos, int id, uberAwesomeMogaMecha.Style _style)
     {
         goList.Add(Instantiate(uberAwesomeMogaMecha, pos, Quaternion.identity) as GameObject);

@@ -8,6 +8,7 @@ public class UpdateMechaRotation : MonoBehaviour
     public GameObject mentos;
     GameObject mentosCopy;
     Networking nt;
+    Spawner _spawner;
     public Transform leftWeapon;
     public Transform rightWeapon;
     public Transform leftShoulder;
@@ -17,6 +18,8 @@ public class UpdateMechaRotation : MonoBehaviour
     private bool isPreparing;
     AudioSource ao;
     AudioSource startupSound;
+    TextMesh _score;
+    int _scoreNumber;
 
     void Start()
     {
@@ -24,12 +27,20 @@ public class UpdateMechaRotation : MonoBehaviour
         nt = GameObject.Find("Networking").GetComponent<Networking>();
         ao = transform.FindChild("ShotSound").audio;
         startupSound = transform.FindChild("StartupSound").audio;
+        _spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
+        _score = transform.FindChild("Score").GetComponent<TextMesh>();
     }
 
     public void Startup()
     {
         if (!isPreparing)
             StartCoroutine("StartupRoutine");
+    }
+
+    public void AddScore(int score)
+    {
+        _scoreNumber += score;
+        _score.text = _scoreNumber.ToString();
     }
 
     IEnumerator StartupRoutine()
