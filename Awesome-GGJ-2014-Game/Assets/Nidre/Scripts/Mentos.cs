@@ -16,8 +16,20 @@ public class Mentos : MonoBehaviour
     //    Destroy(gameObject);
     //}
 
+    void OnEnable()
+    {
+        StartCoroutine("TimeOut");
+    }
+
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.transform.name.Equals("uberEnemy"))
+            Destroy(gameObject);
+    }
+
+    IEnumerator TimeOut()
+    {
+        yield return new WaitForSeconds(15);
         Destroy(gameObject);
     }
 

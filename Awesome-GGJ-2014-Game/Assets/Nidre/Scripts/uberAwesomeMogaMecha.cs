@@ -45,17 +45,20 @@ public class uberAwesomeMogaMecha : MonoBehaviour
             id = int.Parse(System.DateTime.Now.ToString("hhmmssff"));
             _style = (Style)Random.Range(0, 5);
             renderer.sharedMaterial = colors[(int)_style];
+            StartCoroutine("TimeOut");
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.transform.name.Equals("Mentos"))
         DestroyTheEnemy();
     }
 
     IEnumerator TimeOut()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(15);
         DestroyTheEnemy();
     }
 
@@ -67,6 +70,6 @@ public class uberAwesomeMogaMecha : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(-Vector3.forward * 0.3f);
+        transform.Translate(-Vector3.forward * 0.15f);
     }
 }

@@ -95,11 +95,11 @@ public class PunchingBag : MonoBehaviour
             }
             return;
         }
-        if (Time.realtimeSinceStartup - lastShot < currentInterval) return;
         startWait += Time.deltaTime;
+        if (Time.realtimeSinceStartup - lastShot < currentInterval || startWait < 5) return;
         //print(canFire(h1) + " : " + canFire(h2));
         shotSuccess = false;
-        //availableRightShell = availableLeftShell = 5;
+        availableRightShell = availableLeftShell = 5;
         if (availableRightShell > 0)
         {
             ind1.sharedMaterial = ok;

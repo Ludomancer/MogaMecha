@@ -14,73 +14,68 @@ public class UpdateMechaRotation : MonoBehaviour
     public Transform rightShoulder;
     public float force;
     public bool isReady;
+    private bool isPreparing;
+    AudioSource ao;
+    AudioSource startupSound;
 
     void Start()
     {
         anim = animation;
         nt = GameObject.Find("Networking").GetComponent<Networking>();
+        ao = transform.FindChild("ShotSound").audio;
+        startupSound = transform.FindChild("StartupSound").audio;
     }
 
     public void Startup()
     {
-        StartCoroutine("StartupRoutine");
+        if (!isPreparing)
+            StartCoroutine("StartupRoutine");
     }
 
     IEnumerator StartupRoutine()
     {
+        isPreparing = true;
+        startupSound.Play();
         anim.Play("Startup");
         yield return new WaitForSeconds(anim.GetClip("Startup").length);
+        audio.Play();
         isReady = true;
     }
 
     public void LeftShot()
     {
-        mentosCopy = Instantiate(mentos, leftWeapon.position + leftWeapon.forward * 0.25f, Quaternion.identity) as GameObject;
+        mentosCopy = Instantiate(mentos, leftWeapon.position + leftWeapon.forward * 0.75f, Quaternion.identity) as GameObject;
         mentosCopy.rigidbody.AddForce(leftWeapon.forward * force);
         nt.SendMentosPosition(new Vector3[] { mentosCopy.transform.position, leftWeapon.forward * force });
         anim.Blend("Left Shot");
+        ao.Play();
     }
-
-    //void Shotgun(Vector3 pos)
-    //{
-    //    Vector3[] array = new Vector3[6];
-    //    Vector3 initPos = (Camera.main.transform.forward * 5);
-    //    mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-    //    mentosCopy.transform.position += initPos;
-    //    array[0] = mentosCopy.transform.position;
-    //    array[1] = Camera.main.transform.forward * force;
-    //    mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-
-    //    mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-    //    mentosCopy.transform.position += (Camera.main.transform.right * 3) + initPos;
-    //    array[2] = mentosCopy.transform.position;
-    //    array[3] = Camera.main.transform.forward * force;
-    //    mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-    //    mentosCopy = Instantiate(mentos, pos, Quaternion.identity) as GameObject;
-    //    mentosCopy.transform.position += -(Camera.main.transform.right * 3) + initPos;
-    //    array[4] = mentosCopy.transform.position;
-    //    array[5] = Camera.main.transform.forward * force;
-    //    mentosCopy.rigidbody.AddForce(Camera.main.transform.forward * force);
-    //    shotSuccess = true;
-
-    //    nt.SendMentosPosition(array);
-    //}
 
     public void RightShot()
     {
-        mentosCopy = Instantiate(mentos, rightWeapon.position + rightWeapon.forward * 0.25f, Quaternion.identity) as GameObject;
+        mentosCopy = Instantiate(mentos, rightWeapon.position + rightWeapon.forward * 0.75f, Quaternion.identity) as GameObject;
         mentosCopy.rigidbody.AddForce(rightWeapon.forward * force);
         nt.SendMentosPosition(new Vector3[] { mentosCopy.transform.position, rightWeapon.forward * force });
         anim.Blend("Right Shot");
+        ao.Play();
     }
 
+    private float target = 0.3f;
+    private float lastCheck = 0;
+
+    float targetX;
     // Update is called once per frame
     void LateUpdate()
     {
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Camera.main.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        return;
-        Quaternion targetEuler = Quaternion.Euler(360 - Camera.main.transform.rotation.eulerAngles.x, leftShoulder.transform.rotation.eulerAngles.y, leftShoulder.transform.rotation.eulerAngles.z);
-        leftShoulder.rotation = Quaternion.Lerp(leftShoulder.rotation, targetEuler, Time.deltaTime *2);
-        rightShoulder.rotation = Quaternion.Lerp(leftShoulder.rotation, targetEuler, Time.deltaTime*2);
+
+        if (Time.realtimeSinceStartup - lastCheck > target)
+        {
+            targetX = Camera.main.transform.rotation.eulerAngles.x;
+            lastCheck = Time.realtimeSinceStartup;
+        }
+
+        leftShoulder.rotation = Quaternion.Lerp(leftShoulder.rotation, Quaternion.Euler(targetX, leftShoulder.transform.rotation.eulerAngles.y, leftShoulder.transform.rotation.eulerAngles.z), Time.deltaTime * 3);
+        rightShoulder.rotation = Quaternion.Lerp(leftShoulder.rotation, Quaternion.Euler(targetX, leftShoulder.transform.rotation.eulerAngles.y, leftShoulder.transform.rotation.eulerAngles.z), Time.deltaTime * 3);
     }
 }
