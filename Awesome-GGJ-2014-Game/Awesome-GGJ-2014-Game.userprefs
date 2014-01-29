@@ -1,11 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Leap Starter Kit\Leap Scenes\Boxing\PunchingBag.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Nidre - GGJ 2014\Scripts\skyBoxRotate.js">
     <Files>
-      <File FileName="Assets\Standard Assets\Image Effects (Pro Only)\Vignetting.js" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Image Effects (Pro Only)\Crease.js" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Image Effects (Pro Only)\GlowEffect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Leap Starter Kit\Leap Scenes\Boxing\PunchingBag.cs" Line="1" Column="1" />
+      <File FileName="Assets\Nidre - GGJ 2014\Scripts\skyBoxRotate.js" Line="15" Column="20" />
+      <File FileName="Assets\Standard Assets\Image Effects (Pro Only)\BloomAndLensFlares.js" Line="40" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
