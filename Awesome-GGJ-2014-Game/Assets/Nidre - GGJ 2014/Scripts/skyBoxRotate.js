@@ -1,9 +1,11 @@
 ﻿var rotation : float = 282.8941;
 var bloomAmount: float = 0.77;
+var cameraLeft: GameObject;
+var cameraRight: GameObject;
 
 function Update () {
-gameObject.Find("CameraLeft").GetComponent(BloomAndLensFlares).bloomThreshhold = bloomAmount;
-gameObject.Find("CameraRight").GetComponent(BloomAndLensFlares).bloomThreshhold = bloomAmount;
+gameObject.Find(cameraLeft.name).GetComponent(BloomAndLensFlares).bloomThreshhold = bloomAmount;
+gameObject.Find(cameraRight.name).GetComponent(BloomAndLensFlares).bloomThreshhold = bloomAmount;
 gameObject.transform.rotation = Quaternion.Euler(270,rotation,0);
 rotation += 0.01;
 
