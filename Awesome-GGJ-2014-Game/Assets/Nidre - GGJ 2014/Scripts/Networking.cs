@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Networking : MonoBehaviour
 {
     Load _loader;
@@ -20,7 +21,8 @@ public class Networking : MonoBehaviour
     {
         if (!isConnected && GUI.Button(new Rect(10, 10, 200, 50), "Connect"))
         {
-            Debug.Log("Connect");
+            url = GameObject.Find("IPedit").GetComponent<ipEdit>().stringToEdit;
+			Debug.Log("Connect");
             NetworkConnectionError ne = Network.Connect(url, port);
         }
     }

@@ -16,5 +16,5 @@ bloomAmount+=0.002;
 else if(rotation/360 >=1 && rotation % 360 > 150 && bloomAmount>0.77){
 bloomAmount-=0.0001;
 }
-print( rotation % 360);
+//print( rotation % 360);
 }
